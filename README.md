@@ -28,7 +28,7 @@ Version 0.4.0
  # Technologies
 <ul>
   <li>Boostrap</li>
-  <li>Angular></li>
+  <li>Angular</li>
   <li>Jquery</li>
   <li>NodeJS</li>
   <li>Express</li>
