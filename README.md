@@ -25,3 +25,15 @@ Version 0.4
    </ul>
   </ul>
   
+ # Technologies
+<ul>
+  <li>Boostrap</li>
+  <li>Angular></li>
+  <li>Jquery</li>
+  <li>NodeJS</li>
+  <li>Express</li>
+  <li>MongoDB</li>
+  <li>MongoAtlas</li>
+  <li>Font Awesome</li>
+  <li>Sweet Alert</li>
+ 
