@@ -12,7 +12,7 @@ Version 1.0.0
   <li>User login and register</li>
   <li>Shopping cart</li>
   <li>Orders</li>
-  <li>Temperadure and Humidity control through wifi(esp8266)</li>
+  <li>Temperadure and Humidity control (DHT11) through wifi(esp8266)</li>
   <li>Crud of: </li>
    <ul>
     <li>Pallets</li>
