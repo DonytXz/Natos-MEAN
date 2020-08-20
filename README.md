@@ -1,4 +1,4 @@
-# software-company-template
+# Natos
 <p>App for a pallet factory.</p>
 
 Version 0.4
