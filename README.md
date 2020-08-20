@@ -1,7 +1,7 @@
 # Natos
 <p>App for a pallet factory.</p>
 
-Version 0.4.0
+Version 1.0.0
 
 # Live Preview
 <a href="https://natos.herokuapp.com/">View Live Preview</a>
