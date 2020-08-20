@@ -13,8 +13,8 @@ Version 0.4
   <li>Shopping cart</li>
   <li>Orders</li>
   <li>Temperadure and Humidity control through wifi(esp8266)</li>
+  <li>Crud of: </li>
    <ul>
-    <li>Crud of: </li>
     <li>Pallets</li>
     <li>Employees</li>
     <li>Clients</li>
