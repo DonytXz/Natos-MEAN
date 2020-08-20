@@ -1,0 +1,46 @@
+/* TEAM */
+
+                            
+Your title: Donato Alvarez.
+
+                            
+
+Twitter: https://twitter.com/Donato_99
+https://github.com/EmanuelSantos77
+https://github.com/cbchar
+
+
+                            
+Location: Guadalajara, Jal. Mexico
+
+                         
+                 
+                        [...]
+						
+
+							
+/* THANKS */
+
+							
+
+
+						
+                 
+                        [...]
+                        
+
+                            
+/* SITE */
+
+                            
+Last update: 19/09/2020 
+
+                            
+Standards: HTML5, CSS3, JS
+
+                            
+Components: Boostrap, Jquery, Angular, NodeJS, Express, MongoDB
+
+                            
+Software: App for a pallet factory
+   
