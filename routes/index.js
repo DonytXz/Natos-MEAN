@@ -5,7 +5,19 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.json({
     status: 'online',
-    service: 'Natos-MEAN API',
+    service: 'Natos API',
+    endpoints: [
+      '/user',
+      '/empleado',
+      '/proveedor',
+      '/cliente',
+      '/tarima',
+      '/articulo',
+      '/solicitud_compra',
+      '/solicitud_venta',
+      '/carrito',
+      '/health'
+    ],
     uptime: process.uptime(),
     timestamp: new Date()
   });
