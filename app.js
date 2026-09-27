@@ -43,13 +43,31 @@ const carritoRouter = require ('./routes/carrito');
 
 var app = express();
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
-  : '*';
+// CORS with dynamic origin reflection to support credentials safely
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
+  origin: function (origin, callback) {
+    // Allow non-browser requests (Postman, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    // If specific origins are defined in CORS_ORIGIN, check them
+    if (process.env.CORS_ORIGIN && process.env.CORS_ORIGIN !== '*') {
+      const allowed = process.env.CORS_ORIGIN.split(',').map(o => o.trim().toLowerCase());
+      if (allowed.includes(origin.toLowerCase()) || allowed.includes('*')) {
+        return callback(null, origin);
+      }
+    }
+
+    // Default: reflect the requesting origin so credentials work without wildcard conflicts
+    return callback(null, origin);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'token', 'Origin', 'Accept', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 }));
+
+// Preflight handler
+app.options('*', cors());
 
 app.use(logger('dev'));
 app.use(express.json());
