@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,9 +6,17 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
-const mongoose = require ('mongoose');
-mongoose.connect('mongodb+srv://cbarbosa:mongo@clustermsrb-2d6nn.mongodb.net/Natos',
- {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoose = require('mongoose');
+const MONGODB_URI = process.env.MONGODB_URI || process.env.URLDB || 'mongodb+srv://cbarbosa:mongo@clustermsrb-2d6nn.mongodb.net/Natos';
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('Base de datos conectada');
+}).catch(err => {
+  console.error('Error al conectar a la base de datos:', err);
+});
 
 //Aqui ponemos los require para nuestros Schemas
 require('./models/users');
@@ -34,7 +43,13 @@ const carritoRouter = require ('./routes/carrito');
 
 var app = express();
 
-app.use(cors({origin: process.env.PORT || 'http://localhost:4200'}));
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(o => o.trim())
+  : '*';
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -45,6 +60,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'Natos-MEAN API',
+    uptime: process.uptime(),
+    timestamp: new Date()
+  });
+});
 
 //declarando como usaremos las rutas
 app.use('/', indexRouter);
@@ -69,9 +94,22 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
+  if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json')) || !req.accepts('html')) {
+    return res.json({
+      error: err.message,
+      status: err.status || 500
+    });
+  }
   res.render('error');
 });
+
+// Standalone execution support
+if (require.main === module) {
+  const PORT = process.env.PORT || 4200;
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
 
 module.exports = app;
